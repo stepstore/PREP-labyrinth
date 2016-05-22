@@ -3,7 +3,7 @@
 //
 
 #include "Field.hpp"
-
+#include <iostream>
 
 std::istream& operator>>(std::istream& is, Field& field)
 {
@@ -25,6 +25,8 @@ std::istream& operator>>(std::istream& is, Field& field)
             field.field[i][j] = block_type;
 
             if (block_type == BlockType::ENTER) {
+                //как только встретили 2ку поставили current_position
+                cout<<"START "<<i<<' '<<j<<endl;
                 field.current_position = {i, j};
             }
         }
@@ -51,8 +53,9 @@ void Field::tic()
     Direction direction = runner.step();
 
     auto i = current_position.x;
-    auto j = current_position.y;
+    auto j = current_position.y;//старая позиця
 
+    //обновление i,j
     switch (direction) {
         case Direction::UP: {
             --i;
@@ -71,11 +74,12 @@ void Field::tic()
             break;
         }
     }
-
+    //текущий блок
     auto next_block_type = field[i][j];
-
+    //проверка текущей позции
     if (next_block_type != BlockType::WALL) {
-        current_position = {i, j};
+        cout<<endl<<"STEP="<<tic_count<<"    "<<i<<' '<<j<<endl;
+        current_position = {i, j};//перезапись текущей позиции
         set_runner_current_status();
 
         if (next_block_type == BlockType::EXIT) {
@@ -84,8 +88,7 @@ void Field::tic()
     }
 }
 
-void Field::set_runner_current_status()
-{
+void Field::set_runner_current_status() {
     auto i = current_position.x;
     auto j = current_position.y;
 
@@ -94,7 +97,8 @@ void Field::set_runner_current_status()
     status.down = field[i + 1][j];
     status.left = field[i][j - 1];
     status.right = field[i][j + 1];
-
+    //вот тут бегуну ставится новый статус
+    //статус-это 4 окружающие его клетки
     runner.set_current_status(status);
 }
 
@@ -102,7 +106,7 @@ bool Field::is_done()
 {
     return done;
 }
-
+//вывод количества шагов
 void Field::result(std::ostream& os)
 {
     os << "Total steps: " << tic_count << std::endl;

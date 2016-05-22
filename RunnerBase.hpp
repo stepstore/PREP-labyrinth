@@ -6,8 +6,6 @@
 #define LABYRINTH_RUNNER_BASE_HPP
 
 #include "utils.hpp"
-
-
 class RunnerBase {
     protected:
         Status current_status;
