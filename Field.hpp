@@ -21,11 +21,13 @@ class Field {
             size_t y;
         };
 
-        size_t tic_count = 0;
+        size_t tic_count = 0;//счетчик шагов
+
         bool done = false;
 
-        vector<vector<BlockType>> field;
-        Runner runner;
+        vector<vector<BlockType>> field;//поле
+
+        Runner runner;//бегун
 
         Position current_position;
 
@@ -35,7 +37,8 @@ class Field {
 
         friend std::istream& operator>>(std::istream& is, Field& field);
 
-        void tic();
+        void tic();//запуск подсчета кол-ва шагов
+
         bool is_done();
 
         void result(std::ostream& os);
