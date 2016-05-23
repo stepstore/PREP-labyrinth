@@ -5,10 +5,10 @@
 #ifndef LABYRINTH_RUNNER_HPP
 #define LABYRINTH_RUNNER_HPP
 
-#include <vector>
+//#include <vector>
 #include "RunnerBase.hpp"
 
-using namespace std;
+//using namespace std;
 
 
 class Runner : public RunnerBase {
@@ -18,9 +18,9 @@ class Runner : public RunnerBase {
 
     bool hit=false;
 
-    Direction last_face=Direction ::UP;
+    Direction last_face=Direction ::DOWN;
 
-    Direction face=Direction ::UP;
+    Direction face=Direction ::DOWN;
 
     void rotate_right();
 
